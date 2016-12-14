@@ -15,13 +15,13 @@ At this time the test will then run as normal.
 
 Example method level usage:
 ```java
-public class CrossrailApiTest {
+public class MarsColonyConnectionTest {
     @Rule
     public final IgnoreUntilRule rule = new IgnoreUntilRule();
     
-    @IgnoreUntil(expiryDate="2018-01-01", reason="Ignore test until Crossrail is running in 2018.")
+    @IgnoreUntil(expiryDate="2100-01-01", reason="Ignore test until Mars colony is established in next century.")
     @Test
-    public void shouldConnectToCrossrailStatusUpdates() {
+    public void shouldConnectToMarsColony() {
         ...
     }
 }
@@ -29,13 +29,13 @@ public class CrossrailApiTest {
 
 Example class level usage:
 ```java
-@IgnoreUntil(expiryDate="2018-01-01", reason="Ignore test until Crossrail is running in 2018.")
-public class CrossrailApiTest2 {
+@IgnoreUntil(expiryDate="2108-01-01", reason="Ignore test until Mars colony is established in next century.")
+public class MarsColonyConnectionTest2 {
     @ClassRule
     public static final IgnoreUntilRule rule = new IgnoreUntilRule();
     
     @Test
-    public void shouldNotBeExecuted() {
+    public void shouldConnectToMarsColony() {
         ...
     }
 }

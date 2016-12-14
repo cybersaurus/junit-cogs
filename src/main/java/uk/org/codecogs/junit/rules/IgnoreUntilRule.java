@@ -5,13 +5,15 @@ import org.junit.internal.runners.statements.Fail;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
+import uk.org.codecogs.datetime.Clocks;
 import uk.org.codecogs.junit.annotation.IgnoreUntil;
 
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
 
 public final class IgnoreUntilRule implements TestRule {
-    private static final int MAX_IGNORE_DAYS_AHEAD = 7;
+    // By default, allow expiry dates 1 month in the future.
+    private static final int MAX_IGNORE_DAYS_AHEAD = 30;
     private final ChronoLocalDate maxIgnoreDateInclusive;
 
     public IgnoreUntilRule(ChronoLocalDate maxIgnoreDateInclusive) {
@@ -19,7 +21,7 @@ public final class IgnoreUntilRule implements TestRule {
     }
 
     public IgnoreUntilRule(int daysToIgnore) {
-        this.maxIgnoreDateInclusive = LocalDate.now().plusDays(daysToIgnore);
+        this.maxIgnoreDateInclusive = LocalDate.now(Clocks.getClock()).plusDays(daysToIgnore);
     }
 
     public IgnoreUntilRule() {
@@ -42,7 +44,7 @@ public final class IgnoreUntilRule implements TestRule {
         if (expiryDate.isAfter(maxIgnoreDateInclusive)) {
             // IgnoreUntil expiry date is too far in the future.
             result = new Fail(new InvalidIgnoreUntilDateException("Maximum IgnoreUntil expiry date is is :"+ maxIgnoreDateInclusive));
-        } else if (expiryDate.plusDays(1).isBefore(LocalDate.now())) {
+        } else if (!expiryDate.isAfter(LocalDate.now(Clocks.getClock()))) {
             // IgnoreUntil date has expired.
             final IgnoreUntil.ExpiryAction expiryAction = annotation.expiryAction() != null ? annotation.expiryAction() : IgnoreUntil.ExpiryAction.RUN;
 
