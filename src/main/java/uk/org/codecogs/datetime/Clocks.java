@@ -17,7 +17,7 @@ public final class Clocks {
         return clock;
     }
 
-    public static void useSystenDefaultClock() {
+    public static void useSystemDefaultClock() {
         clock = Clock.systemDefaultZone();
     }
 

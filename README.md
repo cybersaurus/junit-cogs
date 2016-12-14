@@ -29,7 +29,7 @@ public class MarsColonyConnectionTest {
 
 Example class level usage:
 ```java
-@IgnoreUntil(expiryDate="2108-01-01", reason="Ignore test until Mars colony is established in next century.")
+@IgnoreUntil(expiryDate="2100-01-01", reason="Ignore test until Mars colony is established in next century.")
 public class MarsColonyConnectionTest2 {
     @ClassRule
     public static final IgnoreUntilRule rule = new IgnoreUntilRule();
