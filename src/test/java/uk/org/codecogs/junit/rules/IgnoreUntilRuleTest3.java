@@ -22,7 +22,7 @@ public class IgnoreUntilRuleTest3 {
 
     @After
     public void tearDown() {
-        Clocks.useSystenDefaultClock();
+        Clocks.useSystemDefaultClock();
     }
 
     @IgnoreUntil(expiryDate="2016-12-13", reason="Run test - system clock frozen to past expiry date.")
